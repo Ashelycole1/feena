@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: fenna-go-backend
+    env: go
+    region: frankfurt
+    buildCommand: go build -o main ./backend/cmd/api
+    startCommand: ./main
+    envVars:
+      - key: PORT
+        value: 8080
+      - key: DATABASE_URL
+        fromDatabase:
+          name: fenna-db
+          property: connectionString
+
+databases:
+  - name: fenna-db
+    databaseName: fenna_ledger
+    plan: starter
